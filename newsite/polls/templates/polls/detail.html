@@ -8,9 +8,20 @@
 
 <div>
     <p>so...</p>
-    <i>{{ question }}</i>
+    <h1>{{ question.question_text }}</h1>
+</div>
 
-    <hr/>
+<div>
+    <ul>
+        {% for choice in question.choice_set.all %}
+        <li>{{ choice.choice_text }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<hr/>
+
+<div>
     <a href="/polls" style="text-decoration: none">all questions</a>
 </div>
 
