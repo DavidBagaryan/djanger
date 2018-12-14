@@ -14,7 +14,11 @@ def index(request: HttpRequest) -> HttpResponse:
 
 
 def detail(request: HttpRequest, question_id: int) -> HttpResponse:
-    return HttpResponse(f"You're looking at question {question_id}")
+    resp_str = f'You\'re looking at question {question_id}'
+    template = loader.get_template('polls/detail.html')
+    context = {'title': f'{question_id} details', 'resp_str': resp_str}
+
+    return HttpResponse(template.render(context, request))
 
 
 def results(request: HttpRequest, question_id: int) -> HttpResponse:
