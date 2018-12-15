@@ -7,10 +7,9 @@ from .models import Question, Choice
 
 
 class IndexView(generic.ListView):
+    # model = Question
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
-
-    # context = {'title': 'hello index', 'latest_question_list': latest_question_list}
 
     def get_queryset(self):
         return get_list_or_404(Question)[:5]
