@@ -7,22 +7,36 @@
 <body>
 
 <div>
-    <p>so...</p>
     <h1>{{ question.question_text }}</h1>
 </div>
 
+{% if error_mes %}
 <div>
-    <ul>
-        {% for choice in question.choice_set.all %}
-        <li>{{ choice.choice_text }}</li>
-        {% endfor %}
-    </ul>
+    <p><strong>{{ error_mes }</strong></p>
+</div>
+{% endif %}
+
+<div>
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+        <div>{% csrf_token %}</div>
+
+        <div>
+            {% for choice in question.choice_set.all %}
+
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+
+            {% endfor %}
+        </div>
+
+        <div>
+            <input type="submit" value="Vote">
+        </div>
+    </form>
 </div>
 
-<hr/>
-
 <div>
-    <a href="/polls" style="text-decoration: none">all questions</a>
+    <a href="{% url 'polls:index' %}" style="text-decoration: none">all questions</a>
 </div>
 
 </body>
