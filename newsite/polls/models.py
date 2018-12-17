@@ -2,7 +2,7 @@ import datetime
 
 from django.db import models
 from django.db.models import CharField
-from django.utils import timezone
+from django.utils import timezone, dateparse
 
 
 class Question(models.Model):
@@ -13,7 +13,9 @@ class Question(models.Model):
         return self.question_text
 
     def was_published_recently(self) -> bool:
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        now = timezone.now()
+        pub_date = dateparse.parse_datetime(self.pub_date.__str__())
+        return now - datetime.timedelta(days=1) <= pub_date <= now
 
 
 class Choice(models.Model):
