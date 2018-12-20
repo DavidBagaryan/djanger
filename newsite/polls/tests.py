@@ -33,11 +33,6 @@ class QuestionModelTest(TestCase):
         """
         self.make_test_case(False, {'days': 30})
 
-        # old
-        # plus_thirty_days = timezone.now() + datetime.timedelta(days=30)
-        # future_question = Question(pub_date=plus_thirty_days)
-        # self.assertIs(future_question.was_published_recently(), False)
-
     def test_was_published_recently_with_old_question(self):
         """
         was_published_recently() returns False for questions whose pub_date
@@ -45,22 +40,12 @@ class QuestionModelTest(TestCase):
         """
         self.make_test_case(False, {'days': -1, 'seconds': -1})
 
-        # old
-        # one_day_ago = timezone.now() - datetime.timedelta(days=1, seconds=1)
-        # old_question = Question(pub_date=one_day_ago)
-        # self.assertIs(old_question.was_published_recently(), False)
-
     def test_was_published_recently_with_last_day_question(self):
         """
         was_published_recently() returns True for questions whose pub_date
         is within the last day.
         """
         self.make_test_case(True, {'hours': -23, 'minutes': -59, 'seconds': -59})
-
-        # old
-        # last_day = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
-        # recent_question = Question(pub_date=last_day)
-        # self.assertIs(recent_question.was_published_recently(), True)
 
 
 class QuestionIndexViewTests(TestCase):
@@ -97,6 +82,7 @@ class QuestionIndexViewTests(TestCase):
 
     def test_two_past_questions(self):
         """The questions index page may display multiple questions."""
+
         create_question(question_text="Past question 1.", days=-30)
         create_question(question_text="Past question 2.", days=-5)
         response = self.client.get(reverse('polls:index'))

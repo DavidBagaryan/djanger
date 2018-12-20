@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpRequest, HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
@@ -15,22 +15,21 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         """Return the last five published questions (not including those set to be published in the future)."""
         return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
-        # return get_list_or_404(Question, **{'pub_date__lte': timezone.now()}).order_by('-pub_date')[:5]
 
 
 class DetailView(generic.DetailView):
-    model = Question
+    # model = Question
     template_name = 'polls/detail.html'
-
-
-class ResultsView(generic.DetailView):
-    model = Question
-    template_name = 'polls/results.html'
 
     def get_queryset(self):
         """Excludes any questions that aren't published yet."""
 
         return Question.objects.filter(pub_date__lte=timezone.now())
+
+
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = 'polls/results.html'
 
 
 def vote(request: HttpRequest, question_id: int):
