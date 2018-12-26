@@ -107,8 +107,12 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 # TIME_ZONE = 'UTC'
+
 # Czech republic timezone
-TIME_ZONE = 'CET'
+# TIME_ZONE = 'CET'
+
+# Moscow republic timezone
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
