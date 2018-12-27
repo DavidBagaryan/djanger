@@ -2,6 +2,8 @@ from django.contrib import admin
 
 from .models import Question, Choice
 
+admin.AdminSite.site_header = 'POLLS ADMIN MFKRS |-{{ AWESOME'
+
 
 class ChoiceInline(admin.TabularInline):
     model = Choice
