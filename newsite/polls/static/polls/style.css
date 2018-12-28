@@ -1,0 +1,11 @@
+body {
+    background:white url('images/background.png') no-repeat;
+}
+
+li a {
+    color: green;
+}
+
+a {
+    text-decoration: none;
+}
